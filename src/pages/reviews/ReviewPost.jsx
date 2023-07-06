@@ -27,6 +27,7 @@ export const ReviewPost = (props) => {
   }
   const submitPost = (e) => {
     //wil need to send shop, user, rating, drink, comments,
+    console.log('inside post');
     turnOff('star1');
     turnOff('star2');
     turnOff('star3');
@@ -41,12 +42,14 @@ export const ReviewPost = (props) => {
         drink: drink,
         comments: comments
       })
-      .then(() => {
-        props.getReviews()
+      .then((results) => {
+        console.log('please work: ', results);
+        props.setToggle2(!props.toggle2);
+        props.getReviews();
         props.getAverages();
       })
-      .catch((e) => {
-        console.log(e);
+      .catch((err) => {
+        console.log(err);
       })
     }
   }

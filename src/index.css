@@ -25,9 +25,10 @@
 }
 
 .noReviewsYet {
-  left: 107px;
   font-weight: bolder;
+  font-size: large;
   position: relative;
+  transform: translate(30%, 0%);
 }
 
 .reviewsPic {
@@ -119,7 +120,7 @@
 #reviewForm {
   border: solid #95a2a5;
   border-radius: 10px;
-  margin: 16px 0px 30px 0;
+  margin: 16px 22px 30px 0;
   float: right;
   position: relative;
   width: 328px;
@@ -133,6 +134,8 @@
   height: 23px;
   width: 48px;
   font-weight: 500;
+  display: block;
+  transform: translate(290%, -30%);
 }
 
 a {
@@ -152,6 +155,20 @@ a {
 
 #comments {
   margin: 0 0 15px 52px;
+  height: 62px;
+  width: 212px;
+  border-radius: 5px;
+  border: 3px solid #95a2a5;
+  background-color: #fdaa5936;
+  color: #99592a;
+}
+
+#comments:focus {
+  border-color: #c97107;
+}
+
+::placeholder {
+  color: #99592a;
 }
 
 #validation {
@@ -159,7 +176,7 @@ a {
 }
 
 #filterReviews {
-  margin: 0 8% 0 259px;
+  margin: 0 8% 0 286px;
   height: 20px;
   min-width: 75px;
   max-width: 6%;
@@ -209,53 +226,26 @@ a {
 }
 
 @media only screen and (min-width: 500px) {
-  :root {
-    max-width: 75%;
+  .noReviewsYet {
+    transform: translate(37%, 148%);
   }
 
-  .reviewsEntry {
-    display: inline-block;
-    border: 1px solid black;
-    min-width: 85%;
-    max-width: 85%;
-    min-height: 184px;
-    margin: 1% 0% 0% 0%;
+  #filterContainer {
+    transform: translate(23%, 10%);
   }
 
-  #reviewList {
-    left: 7.5%;
-    position: relative;
+  #reviewListContainer {
+    transform: translate(7%, 8%);
   }
 
-  .reviewsComment {
-    position: relative;
-    left: 1%;
-    margin: 45px 2% 20px 1px;
-  }
-
-  .reviewsRatingContainer {
-    float: right;
-    margin: -90px 1% 0% 0%;
+  #reviewForm {
+    float: none;
+    transform: translate(28%, 25%);
   }
 
   #filterReviews {
-    margin: 136px 8% 0 0;
-    float: left;
-    left: 85%;
-    height: 20px;
-    min-width: 102px;
-    max-width: 6%;
-    position: relative;
+    margin: 0 8% 0 257px;
   }
-
-    #reviewForm {
-    border: 1px solid black;
-    margin: 0 39% 30px 0;
-    float: right;
-    position: relative;
-    width: 328px;
-  }
-
 }
 
 .button_logout {

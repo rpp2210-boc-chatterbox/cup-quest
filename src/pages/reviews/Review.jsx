@@ -12,11 +12,12 @@ export const Review = ({ shopId, userId, getAverages }) => {
   const [filtered, setFiltered] = useState(false);
   const [starting, setStarting] = useState(0);
   const [toggle, setToggle] = useState(true);
+  const [toggle2, setToggle2] = useState(true);
 
   useEffect(() => {
     getReviews();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [shopId])
+  }, [toggle2])
 
   const getReviews = () => {
     console.log('la shop: ', shopId);
@@ -34,9 +35,10 @@ export const Review = ({ shopId, userId, getAverages }) => {
           )
         })
       })
-      .then((results) => {
+      .then((results2) => {
+        console.log('getReviews: ', results2)
         setFiltered(false);
-        setReviewList(results);
+        setReviewList(results2);
       })
       .catch((err) => {
         console.log('error in getReviews: ', err);
@@ -44,7 +46,7 @@ export const Review = ({ shopId, userId, getAverages }) => {
   }
   return (
     <div id='reviewsSection'>
-      <ReviewPost getReviews={getReviews} filtered={filtered} setFiltered={setFiltered} shop={shopId} reviewList={reviewList} setReviewList={setReviewList} userId={userId} getAverages={getAverages}/>
+      <ReviewPost toggle2={toggle2} setToggle2={setToggle2} getReviews={getReviews} filtered={filtered} setFiltered={setFiltered} shop={shopId} reviewList={reviewList} setReviewList={setReviewList} userId={userId} getAverages={getAverages}/>
       <ReviewList reviewList={reviewList}  filtered={filtered} setFiltered={setFiltered} setReviewList={setReviewList} reviewContent={reviewContent} setReviewContent={setReviewContent} starting={starting} setStarting={setStarting}/>
     </div>
   )

@@ -24,7 +24,7 @@ const Map = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
 
-  const [userId, setUserId] = useState('64a5927b3665bd14af9fa491');
+  const [userId, setUserId] = useState('649ea0b8ca04831dbf68bb5e');
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(

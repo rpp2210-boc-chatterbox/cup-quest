@@ -53,9 +53,31 @@ export const ReviewList = (props) => {
         )
       } else {
         return (
-          <div id='reviewList'>
-            {props.reviewList[props.starting]}
-            {props.reviewList[props.starting + 1]}
+          <div>
+            <div id='filterContainer'>
+              <select id='filterReviews' onClick={(e) => {filter(e)}}>
+                <option className='filterOptions' value='None'>None</option>
+                <option className='filterOptions' value='Drip Coffee'>Drip Coffee</option>
+                <option className='filterOptions' value='Pourover'>Pourover</option>
+                <option className='filterOptions' value='Cafe Au Lait'>Cafe Au Lait</option>
+                <option className='filterOptions' value='Latte'>Latte</option>
+                <option className='filterOptions' value='Flat White'>Flat White</option>
+                <option className='filterOptions' value='Mocha'>Mocha</option>
+                <option className='filterOptions' value='Cappuccino'>Cappuccino</option>
+                <option className='filterOptions' value='Espresso'>Espresso</option>
+                <option className='filterOptions' value='Macchiato'>Macchiato</option>
+                <option className='filterOptions' value='Cortado'>Cortado</option>
+                <option className='filterOptions' value='Americano'>Americano</option>
+                <option className='filterOptions' value='Cold Brew'>Cold Brew</option>
+                <option className='filterOptions' value='Iced Coffee'>Iced Coffee</option>
+                <option className='filterOptions' value='Hot Chocolate'>Hot Chocolate</option>
+                <option className='filterOptions' value='Specialty Drink'>Specialty Drink</option>
+              </select>
+            </div>
+            <div id='reviewList'>
+              {props.reviewList[props.starting]}
+              {props.reviewList[props.starting + 1]}
+            </div>
           </div>
         )
       }
@@ -66,9 +88,31 @@ export const ReviewList = (props) => {
         )
       } else {
         return (
-          <div id='reviewList'>
-            {filteredReviews[props.starting]}
-            {filteredReviews[props.starting + 1]}
+          <div>
+            <div id='filterContainer'>
+            <select id='filterReviews' onClick={(e) => {filter(e)}}>
+              <option className='filterOptions' value='None'>None</option>
+              <option className='filterOptions' value='Drip Coffee'>Drip Coffee</option>
+              <option className='filterOptions' value='Pourover'>Pourover</option>
+              <option className='filterOptions' value='Cafe Au Lait'>Cafe Au Lait</option>
+              <option className='filterOptions' value='Latte'>Latte</option>
+              <option className='filterOptions' value='Flat White'>Flat White</option>
+              <option className='filterOptions' value='Mocha'>Mocha</option>
+              <option className='filterOptions' value='Cappuccino'>Cappuccino</option>
+              <option className='filterOptions' value='Espresso'>Espresso</option>
+              <option className='filterOptions' value='Macchiato'>Macchiato</option>
+              <option className='filterOptions' value='Cortado'>Cortado</option>
+              <option className='filterOptions' value='Americano'>Americano</option>
+              <option className='filterOptions' value='Cold Brew'>Cold Brew</option>
+              <option className='filterOptions' value='Iced Coffee'>Iced Coffee</option>
+              <option className='filterOptions' value='Hot Chocolate'>Hot Chocolate</option>
+              <option className='filterOptions' value='Specialty Drink'>Specialty Drink</option>
+            </select>
+            </div>
+            <div id='reviewList'>
+              {filteredReviews[props.starting]}
+              {filteredReviews[props.starting + 1]}
+            </div>
           </div>
         )
       }
@@ -76,26 +120,6 @@ export const ReviewList = (props) => {
   }
   return (
     <div id='reviewListContainer'>
-      <div id='filterContainer'>
-        <select id='filterReviews' onClick={(e) => {filter(e)}}>
-          <option className='filterOptions' value='None'>None</option>
-          <option className='filterOptions' value='Drip Coffee'>Drip Coffee</option>
-          <option className='filterOptions' value='Pourover'>Pourover</option>
-          <option className='filterOptions' value='Cafe Au Lait'>Cafe Au Lait</option>
-          <option className='filterOptions' value='Latte'>Latte</option>
-          <option className='filterOptions' value='Flat White'>Flat White</option>
-          <option className='filterOptions' value='Mocha'>Mocha</option>
-          <option className='filterOptions' value='Cappuccino'>Cappuccino</option>
-          <option className='filterOptions' value='Espresso'>Espresso</option>
-          <option className='filterOptions' value='Macchiato'>Macchiato</option>
-          <option className='filterOptions' value='Cortado'>Cortado</option>
-          <option className='filterOptions' value='Americano'>Americano</option>
-          <option className='filterOptions' value='Cold Brew'>Cold Brew</option>
-          <option className='filterOptions' value='Iced Coffee'>Iced Coffee</option>
-          <option className='filterOptions' value='Hot Chocolate'>Hot Chocolate</option>
-          <option className='filterOptions' value='Specialty Drink'>Specialty Drink</option>
-        </select>
-      </div>
       {chooseReviews()}
       <div className='arrowButtons'>
         {back()}
