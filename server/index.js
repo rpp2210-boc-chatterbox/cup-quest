@@ -98,6 +98,7 @@ app.post('/validateOnClick', async function (req, res) {
 
   res.status(200).send();
 });
+//~~~~~~~~~~~~~~~~~~~~~~~~~~ DAVID C. NEEDS THIS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 app.get('/userLogin/:email', async (req, res) => {
   try {
@@ -106,10 +107,12 @@ app.get('/userLogin/:email', async (req, res) => {
     if (user) {
       let firstName = user.name.split(' ')[0];
       res.json({
+        _id: user._id,
         email: user.email,
         name: firstName,
         picture: user.picture,
-        bio: user.bio
+        bio: user.bio,
+        friends: user.friends
       });
     } else {
       res.status(404).json({ message: 'User not found' });
@@ -149,6 +152,33 @@ app.post('/reviews', (req, res) => {
     })
   // Review.create({})
 })
+
+app.get('/map/:lat/:lng/:api', (req, res) => {
+  const lat = req.params.lat;
+  const lng = req.params.lng;
+  const API = req.params.api;
+
+  // console.log('lat,lng,auth===> ', lat, lng, API)
+
+  fetch(`https://api.yelp.com/v3/businesses/search?latitude=${lat}&longitude=${lng}&term=coffee&sort_by=best_match&limit=10`, {
+    headers: {
+      Authorization: API
+    }
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.businesses && data.businesses.length > 0) {
+        res.status(200).json(data.businesses);
+      } else {
+        res.status(404).json({ message: 'No coffee shops found' });
+      }
+    })
+    .catch(error => {
+      console.log('Error fetching coffee shops:', error);
+      res.status(500).json({ message: 'Error fetching coffee shops' });
+    });
+});
+
 
 app.put('/reviews', (req, res) => {
   const reviewId = new mongoose.Types.ObjectId(req.body.reviewId);

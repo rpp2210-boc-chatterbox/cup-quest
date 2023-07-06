@@ -3,7 +3,7 @@ import { User } from '../models/user.js';
 import mongoose from 'mongoose';
 
 export const getUser = async (user_name) => {
-  return await User.findOne(user_name).exec();
+  return await User.findOne( user_name).exec();
 };
 
 export const getAllUsers = async () => {

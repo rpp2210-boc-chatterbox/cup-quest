@@ -17,7 +17,7 @@ export const Reactions = (props) => {
   )
 }
 
-const Like = (props) => {
+export const Like = (props) => {
   const current = localStorage.getItem(props.reviewId);
   if (current !== 'likes') {
     return (
@@ -40,7 +40,7 @@ const Like = (props) => {
   }
 }
 
-const Dislike = (props) => {
+export const Dislike = (props) => {
   const current = localStorage.getItem(props.reviewId);
   if (current !== 'dislikes') {
     return (
@@ -63,7 +63,10 @@ const Dislike = (props) => {
   }
 }
 
-const onClick = (reviewId, react1, react2, num1, num2, toggle, setToggle, getReviews) => {
+// Keeping most recent change
+// ProfPage
+export const onClick = (reviewId, react1, react2, num1, num2, toggle, setToggle) => {
+// const onClick = (reviewId, react1, react2, num1, num2, toggle, setToggle, getReviews) => {
   var current = localStorage.getItem(reviewId);
   if (current === react1) {
     localStorage.removeItem(reviewId);

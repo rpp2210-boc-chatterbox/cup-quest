@@ -16,6 +16,7 @@ router.get('/all', async (req, res) => {
 });
 
 router.get('/:name', async (req, res) => {
+  console.log(req.params);
   return await getUser(req.params)
     .then((result) => {
       if (result) {

@@ -29,7 +29,7 @@ export const ShopOverview = (props) => {
   }, [])
 
   return (
-    <div>
+    <div className="overview_fullPage">
       <div className="overview_header">
         <Link to='/home'>
           <button className="button_back">Back</button>

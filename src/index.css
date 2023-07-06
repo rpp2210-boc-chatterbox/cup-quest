@@ -209,6 +209,10 @@ a {
 }
 
 @media only screen and (min-width: 500px) {
+  :root {
+    max-width: 75%;
+  }
+
   .reviewsEntry {
     display: inline-block;
     border: 1px solid black;
