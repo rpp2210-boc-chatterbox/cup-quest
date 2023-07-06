@@ -16,7 +16,7 @@
 
 .reviewsEntry {
   display: inline-block;
-  border: 2px solid #542a1b;
+  border: solid #95a2a5;
   border-radius: 10px;
   min-width: 101%;
   max-width: 101%;
@@ -39,6 +39,9 @@
 
 .profile-name {
   margin: 23px 0% 0% 106px;
+  color: #99592a;
+  font-weight: bold;
+  font-size: 1.17em;
 }
 
 .reviewsDrink {
@@ -113,9 +116,30 @@
   border-color: #e6b17e;
 }
 
-.postReview {
-  border: 1px solid #542a1b;
+#reviewForm {
+  border: solid #95a2a5;
   border-radius: 10px;
+  margin: 16px 0px 30px 0;
+  float: right;
+  position: relative;
+  width: 328px;
+}
+
+#postButton {
+  background-color: #e6b17e;
+  border-color: #e6b17e;
+  border-radius: 5px;
+  color: #99592a;
+  height: 23px;
+  width: 48px;
+  font-weight: 500;
+}
+
+a {
+  text-decoration: none;
+  color: #99592a;
+  font-weight: bold;
+  font-size: 1.17em;
 }
 
 .rate {
@@ -144,15 +168,6 @@
   border: #e6b17e;
   background-color: #e6b17e;
   border-radius: 5px;
-}
-
-#reviewForm {
-  border: 1px solid #542a1b;
-  border-radius: 10px;
-  margin: 16px 4% 30px 0;
-  float: right;
-  position: relative;
-  width: 328px;
 }
 
 .reactionButtons {
