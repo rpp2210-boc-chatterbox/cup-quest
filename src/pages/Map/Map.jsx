@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLocation } from 'react';
 import GoogleMapReact from 'google-map-react';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -98,7 +98,7 @@ const Map = () => {
 
   const header = () => {
     return (
-      <div style={{ marginBottom: 10 }}>
+      <div className="home_search" style={{ marginBottom: 10 }}>
         <TextField
           label="Show me coffee shops in..."
           variant="outlined"
@@ -141,8 +141,8 @@ const Map = () => {
 
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <div
+      <div className="home_container" style={{ display: 'flex', flexDirection: 'column' }}>
+        <div className="home_map"
             style={{
               height: '40vh',
               width: '100%',
@@ -174,16 +174,17 @@ const Map = () => {
             }
 
           </GoogleMapReact>
-          <div
+          <div className="home_list--container"
           style={{
             height: '40vh',
             width: '100%',
             overflowY: 'auto'
           }}
           >
-          <ul>
+          <ul className="home_list">
             {shops.map((shop) => (
               <li
+                className="home_list--item"
                 key={shop.id}
                 style={{
                   display: 'flex',
@@ -199,7 +200,7 @@ const Map = () => {
                 </Typography>
                 <Link
                   to='/overview' state={{ shopId: shop.id, userId: userId }}>
-                  <Button>
+                  <Button className="home_button--shop">
                     Click
                   </Button>
                 </Link>
