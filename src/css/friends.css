@@ -1,1 +1,30 @@
-/* comment */
+.friends h1 {
+  text-align: center;
+}
+
+.friends {
+  display: block;
+  justify-content: center;
+  align-items: center;
+}
+
+.friend a {
+  display: flex;
+  justify-content: center;
+}
+
+.friend-profile-name {
+  color: var(--orange);
+}
+
+.add-remove-friend-button {
+  display: inline-block;
+  padding: 10px 15px;
+  font-size: 14px;
+  border: none;
+  color: var(--dark-brown);
+  border: var(--tan);
+  background-color: var(--tan);
+  cursor: pointer;
+  border-radius: 5px;
+}

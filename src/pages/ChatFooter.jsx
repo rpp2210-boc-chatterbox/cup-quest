@@ -23,7 +23,7 @@ const ChatFooter = ({ socket, currentUser, currentChat }) => {
         <input
           type='text'
           placeholder='Type message...'
-          className='message'
+          className='chat-message-box'
           value={text}
           onChange={ (e) => setText(e.target.value) } />
         <button className='chat-message-send-button'>Send</button>

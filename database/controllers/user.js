@@ -10,13 +10,17 @@ export const getAllUsers = async () => {
   return await User.find().exec();
 };
 
+export const isFriend = async (username, friend_id) => {
+  return await User.findOne({ name: username, friends: friend_id})
+};
+
 export const getFriends = async (user) => {
   var userObj = await User.findOne(user);
   var friends = await Promise.all(userObj.friends.map(async (friend_id) => {
     return await User.findOne({ _id: friend_id, friends: userObj._id });
   }));
   return friends.filter(x => x);
-}
+};
 
 export const addFriend = async (user, friend_id) => {
   return await User.findOneAndUpdate(
@@ -24,7 +28,7 @@ export const addFriend = async (user, friend_id) => {
     { $addToSet: { friends: [friend_id] } },
     { safe: true, upsert: true }
   ).exec();
-}
+};
 
 export const removeFriend = async (user, friend_id) => {
   return await User.findOneAndUpdate(
@@ -32,4 +36,4 @@ export const removeFriend = async (user, friend_id) => {
     { $pull: { friends: friend_id } },
     { safe: true, upsert: true },
   ).exec();
-}
+};

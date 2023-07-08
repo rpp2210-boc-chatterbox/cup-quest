@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
 
-import { getUser, getAllUsers, addFriend, removeFriend, getFriends } from '../../database/controllers/user.js';
+import { getUser, getAllUsers, addFriend, removeFriend, getFriends, isFriend } from '../../database/controllers/user.js';
 
 router.get('/all', async (req, res) => {
   return await getAllUsers()
@@ -14,6 +14,20 @@ router.get('/all', async (req, res) => {
       res.sendStatus(404);
     });
 });
+
+router.get('/:name/friend', async (req, res) => {
+  return await isFriend(req.params.name, req.query.id)
+    .then((result) => {
+      if (result) {
+        res.send(result);
+      } else {
+        res.send('User not found');
+      }
+    })
+    .catch((err) => {
+      res.sendStatus(404);
+    })
+})
 
 router.get('/:name', async (req, res) => {
   console.log(req.params);
@@ -31,7 +45,7 @@ router.get('/:name', async (req, res) => {
 });
 
 router.get('/:name/friends', async (req, res) => {
-  getFriends(req.params)
+  return await getFriends(req.params)
     .then((result) => {
       if (result) {
         res.send(result);

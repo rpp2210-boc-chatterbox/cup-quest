@@ -10,7 +10,7 @@ const ProfileLink = ({ name, currentUser }) => {
 //     }}>
 //       <div className="profile-name" >{props.name}</div>
     <Link to={{pathname: `/user/${name}`}} state={{ currentUser: currentUser }}>
-      <div className="profile-name" >{name}</div>
+      <div className="friend-profile-name" >{name}</div>
     </Link>
   )
 }
