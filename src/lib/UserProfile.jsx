@@ -6,6 +6,8 @@ import UserHistoryList from './UserHistoryList.jsx';
 import FriendToggle from './FriendToggle.jsx';
 
 import requestHandler from './requestHandler.js';
+import UserSearch from './UserSearch.jsx';
+import UserCard from './userCard.jsx';
 
 const UserProfile = (props) => {
   const [isUser, setIsUser] = useState(false);
@@ -13,10 +15,22 @@ const UserProfile = (props) => {
   const { name } = useParams();
   const user = JSON.parse(localStorage.getItem('inUser'));
   const location = useLocation();
-  // console.log('Use Location Hook: ', location);
-  // console.log('Use Location State: ', location.state.currentUser);
+  const [users, setUsers] = useState([]);
+
+  const [search, setSearch] = useState('')
+  const onSearch = (e) => {
+    setSearch(e.target.value);
+  };
+
+ const getAllUsers = () => {
+  requestHandler(`/user/all`, null, 'get', (response) => {
+    setUsers(response.data);
+  });
+
+ }
 
   useEffect(() => {
+    getAllUsers();
 
     if(name === user.name) {
       setIsUser(true);
@@ -27,9 +41,15 @@ const UserProfile = (props) => {
       setIsUser(false);
     });
     }
-
-
   }, [name]);
+
+
+
+  let searchedUsers = [...users].filter((user) => {
+    return user.name.toLowerCase().includes(search.toLowerCase());
+   }).map((user) => {
+   return <UserCard user={user}/>
+  });
 
   return (
     // only thing that is different between friend and user
@@ -60,8 +80,8 @@ const UserProfile = (props) => {
           <FriendToggle currentUser={location.state.currentUser} id={profile._id} name={profile.name} />
         }
       </div>
+        {/* <UserSearch onSearch={onSearch} search={search} /> */}
       <div className='profile-history'>
-      <div><h4>User History</h4></div>
         <UserHistoryList user={user} />
       </div>
     </div>
