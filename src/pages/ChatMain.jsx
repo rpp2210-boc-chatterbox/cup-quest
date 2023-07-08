@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useNavigate, useParams, useLocation } from 'react-router-dom';
 import ChatSide from './ChatSide.jsx';
 import ChatBody from './ChatBody.jsx';
 import ChatFooter from './ChatFooter.jsx';
@@ -48,11 +48,26 @@ const ChatMain = ({ socket }) => {
   }, [friends]);
 
   return (
-    <div className='chat'>
-      <ChatSide socket={socket} friends={friends} currentUser={location.state.currentUser} setCurrentChat={setCurrentChat} />
-      <div className='chat-main'>
-        <ChatBody socket={socket} currentUser={location.state.currentUser} messages={chats[currentChat]} />
-        <ChatFooter socket={socket} currentUser={location.state.currentUser} currentChat={currentChat} />
+    <div>
+      <div className="overview_header">
+        <Link to='/home'>
+          <button className="button_back">Back</button>
+        </Link>
+        <Link to='/home'>
+          <span className="logo_home--container">
+          <img src="../logo-no-background.svg" alt="CupQuest Logo" className="logo logo_home"/>
+          </span>
+        </Link>
+        <Link to='/'>
+          <button className='button_logout'>Logout</button>
+        </Link>
+      </div>
+      <div className='chat'>
+        <ChatSide socket={socket} friends={friends} currentUser={location.state.currentUser} setCurrentChat={setCurrentChat} currentChat={currentChat} />
+        <div className='chat-main'>
+          <ChatBody socket={socket} currentUser={location.state.currentUser} messages={chats[currentChat]} />
+          <ChatFooter socket={socket} currentUser={location.state.currentUser} currentChat={currentChat} />
+        </div>
       </div>
     </div>
   )

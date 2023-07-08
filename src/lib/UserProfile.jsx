@@ -58,7 +58,7 @@ const UserProfile = (props) => {
     // accepts props.isUser and conditionally renders button
     <div className="profile">
       <div className='upperRibbon'>
-      <Link to='/home'> <button className='ribbonButton'>Home</button> </Link>
+        <Link to='/home'> <button className='ribbonButton'>Home</button> </Link>
         <img src="../logo-no-background.svg" alt="CupQuest Logo" className="profile-logo" ></img>
         <Link to='/'> <button className='ribbonButton'>Logout</button> </Link>
       </div>
@@ -73,14 +73,14 @@ const UserProfile = (props) => {
         </div>
       </div>
       <div className="buttons">
-        <Link to={{pathname: `/user/${profile.name}/friends` }} state={{ currentUser: location.state.currentUser }}>
+        <Link to={{ pathname: `/user/${profile.name}/friends` }} state={{ currentUser: location.state.currentUser }}>
           <button className="friends-button" >Friends</button>
         </Link>
-        {isUser ? <div className='edit-button' onClick={() => {console.log('hi')}}>Edit User</div> :
+        {isUser ? <div className='edit-button' onClick={() => { console.log('hi') }}>Edit User</div> :
           <FriendToggle currentUser={location.state.currentUser} id={profile._id} name={profile.name} />
         }
       </div>
-        {/* <UserSearch onSearch={onSearch} search={search} /> */}
+      {/* <UserSearch onSearch={onSearch} search={search} /> */}
       <div className='profile-history'>
         <UserHistoryList user={user} />
       </div>
