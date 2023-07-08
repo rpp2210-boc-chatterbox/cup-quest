@@ -10,13 +10,13 @@ const UserProfile = (props) => {
   const [isUser, setIsUser] = useState(false);
   const [profile, setProfile] = useState({});
   const { name } = useParams();
-
+  const user = JSON.parse(localStorage.getItem('inUser'));
   const location = useLocation();
   //console.log('Use Location Hook: ', location);
   //console.log('Use Location State: ', location.state?.currentUser);
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('inUser'));
+
     if(name === user.name) {
       setIsUser(true);
       setProfile(user);
@@ -63,7 +63,7 @@ const UserProfile = (props) => {
       </div>
       <div className='profile-history'>
       <div><h4>User History</h4></div>
-        <UserHistoryList />
+        <UserHistoryList user={user} />
       </div>
     </div>
   )

@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router();
-
+import { Review } from '../../database/models/review.js'
 import { getUser, getAllUsers, addFriend, removeFriend, getFriends } from '../../database/controllers/user.js';
 
 router.get('/all', async (req, res) => {
@@ -65,6 +65,14 @@ router.put('/:name', async (req, res) => {
         res.sendStatus(404);
       });
   }
+})
+
+router.get('/:name/reviews', (req, res) => {
+  const id = req.body._id === undefined ? 0 : req.body._id;
+  Review.find({ user_id: id }).sort({ createdAt: 'desc' })
+    .then((results) => {
+      res.status(200).send(results);
+    })
 })
 
 export default router;
