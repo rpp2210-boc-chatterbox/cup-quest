@@ -65,7 +65,7 @@ export const Dislike = (props) => {
 
 // Keeping most recent change
 // ProfPage
-export const onClick = (reviewId, react1, react2, num1, num2, toggle, setToggle) => {
+export const onClick = (reviewId, react1, react2, num1, num2, toggle, setToggle, getReviews) => {
 // const onClick = (reviewId, react1, react2, num1, num2, toggle, setToggle, getReviews) => {
   var current = localStorage.getItem(reviewId);
   if (current === react1) {

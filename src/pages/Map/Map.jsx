@@ -10,35 +10,69 @@ import { testData } from './testData';
 import LocalCafeTwoToneIcon from '@mui/icons-material/LocalCafeTwoTone';
 import { Link, Routes, Route } from 'react-router-dom';
 import { ShopOverview } from "../ShopOverview";
+import InputIcon from '@mui/icons-material/Input';
 
 const API = {
   geocode: import.meta.env.VITE_MAP_API_KEY,
   yelp: import.meta.env.VITE_YELP_API_KEY
 };
+
 const Map = () => {
-  const [lat, setLat] = useState(34.03534719240222);
-  const [lng, setLng] = useState(-117.04408209652723);
+  // const [lat, setLat] = useState(null);
+  // const [lng, setLng] = useState(null);
+  const [lat, setLat] = useState(() => {
+    const storedLat = localStorage.getItem('lat');
+    return storedLat ? parseFloat(storedLat) : null;
+  });
+  const [lng, setLng] = useState(() => {
+    const storedLng = localStorage.getItem('lng');
+    return storedLng ? parseFloat(storedLng) : null;
+  });
   const [shops, setShops] = useState([]);
+  // const [shops, setShops] = useState(() => {
+  // const storedShops = localStorage.getItem('shops');
+  //   return storedShops ? parseFloat(storedShops) : null;
+  // });
   const [selectedShopId, setSelectedShopId] = useState(null);
   const [markerClicked, setMarkerClicked] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
-
-  const [userId, setUserId] = useState('64a5927b3665bd14af9fa491');
+  const [userId, setUserId] = useState('649ea0b8ca04831dbf68bb5e');
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setLat(position.coords.latitude);
-        setLng(position.coords.longitude);
-        setShops(testData.businesses);
-        setSelectedShopId(null);
-        setMarkerClicked(false);
-      },
-      (error) => {
-        console.log("Error getting location: ", error.message)
-      }
-    )
+    
+    // console.log('shopId===> ', shopId);
+    // if (!shopId) {
+      
+    console.log('lat/lng===> ', lat, lng)
+    
+    
+    if (lat && lng) {
+      // setShops(testData.businesses);
+      // setSelectedShopId(null);
+      // setMarkerClicked(false);
+    } else {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          // setLat(position.coords.latitude);
+          // setLng(position.coords.longitude);
+          const newLat = position.coords.latitude;
+          const newLng = position.coords.longitude;
+          setLat(newLat);
+          setLng(newLng);
+          // setSelectedShopId(null);
+          // setMarkerClicked(false);
+          localStorage.setItem('lat', newLat.toString());
+          localStorage.setItem('lng', newLng.toString());
+        },
+        (error) => {
+          console.log("Error getting location: ", error.message)
+        }
+      )
+    }
+    
+    fetchShops(lat, lng, API.yelp);
+    
   }, []);
 
   const handleAddressChange = (event) => {
@@ -65,6 +99,8 @@ const Map = () => {
           setSelectedShopId(null);
           setMarkerClicked(false);
           fetchShops(lat, lng, API.yelp);
+          localStorage.setItem('lat', lat.toString());
+          localStorage.setItem('lng', lng.toString());
         } else {
           console.log('No results found');
         }
@@ -85,7 +121,7 @@ const Map = () => {
     .catch(error => {
       console.log('Error fetching coffee shops:', error);
     });
-};
+  };
 
   const clickedOutside = (x, y, lat, lng, event) => {
     if (markerClicked) {
@@ -146,6 +182,7 @@ const Map = () => {
             style={{
               height: '40vh',
               width: '100%',
+              margin: '0',
               marginBottom: '10px'
             }}
         >
@@ -189,21 +226,43 @@ const Map = () => {
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
-                  padding: '5px',
+                  padding: '10px',
                   marginBottom: '5px',
                   backgroundColor: selectedShopId === shop.id ? '#f1e6d0' : 'inherit'
                 }}
               >
-                <Typography style={{ color: "#542a1b" }}>
-                  {shop.name}
-                </Typography>
                 <Link
-                  to='/overview' state={{ shopId: shop.id, userId: userId }}>
-                  <Button>
-                    Click
-                  </Button>
+                  to='/overview' 
+                  state={{ 
+                    shopId: shop.id,
+                    userId: userId
+                  }}
+                  style={{ 
+                    color: "#542a1b",
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between'
+                  }}
+                >
+                  <LocalCafeTwoToneIcon>
+                  key={shop.id}
+                  color={"#542a1b"}
+                  lat={shop.coordinates.latitude}
+                  lng={shop.coordinates.longitude}
+                  onClick={() => {
+                    setSelectedShopId(shop.id);
+                    setMarkerClicked(true);
+                  }}
+                </LocalCafeTwoToneIcon>
+                
+                    <Typography 
+                    underline="hover"
+                    style={{ 
+                      color: "#542a1b"
+                      }}>
+                      {shop.name}
+                    </Typography>
                 </Link>
-
               </li>
             ))}
           </ul>
