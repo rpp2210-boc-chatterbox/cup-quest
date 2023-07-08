@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { Link, Routes, Route } from 'react-router-dom'
 import Typography from '@mui/material/Typography';
@@ -29,7 +30,6 @@ export function Home({ loggedEmail, loggedName, loggedPicture, setEmail, setName
       fetchUser();
     }
   }, [])
-  // console.log('current user useEffect: ', currentUser)
 
   const handleLogoutClick = (e) => {
     setEmail(null)
@@ -49,11 +49,14 @@ export function Home({ loggedEmail, loggedName, loggedPicture, setEmail, setName
       <Link to='/'>
         <button onClick={handleLogoutClick}>Logout</button>
       </Link>
-      <Link to='/user/Sean/friends' state={{ currentUser: currentUser }}>
+      <Link to={`/user/${currentUser.name}/friends` } state={{ currentUser: currentUser }}>
         <button>Friends</button>
       </Link>
       <Link to= {`/user/${currentUser.name}`} state={{ currentUser: currentUser }}>
         <button>User Profile</button>
+      </Link>
+      <Link to='/chat' state={{ currentUser: currentUser }}>
+        <button>Chat</button>
       </Link>
       <Map />
     </>

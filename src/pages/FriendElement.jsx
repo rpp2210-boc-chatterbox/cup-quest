@@ -3,12 +3,11 @@ import React, { useState, useEffect } from 'react';
 
 import ProfileLink from '../lib/ProfileLink.jsx';
 
-const FriendElement = ({ friend }) => {
-
+const FriendElement = ({ friend, currentUser }) => {
   return (
     <div className="friend">
       <div className="friend-profile-pic"></div>
-      <ProfileLink name={friend.name} />
+      <ProfileLink name={friend.name} currentUser={currentUser} />
     </div>
   )
 }

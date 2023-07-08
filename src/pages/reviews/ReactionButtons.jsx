@@ -11,8 +11,8 @@ const solidDown = <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="
 export const Reactions = (props) => {
   return (
     <div>
-      <Like toggle={props.toggle} setToggle={props.setToggle} likes={props.likes} dislikes={props.dislikes} reviewId={props.reviewId}/>
-      <Dislike  toggle={props.toggle} setToggle={props.setToggle} likes={props.likes} dislikes={props.dislikes} reviewId={props.reviewId}/>
+      <Like getReviews={props.getReviews} toggle={props.toggle} setToggle={props.setToggle} likes={props.likes} dislikes={props.dislikes} reviewId={props.reviewId}/>
+      <Dislike getReviews={props.getReviews} toggle={props.toggle} setToggle={props.setToggle} likes={props.likes} dislikes={props.dislikes} reviewId={props.reviewId}/>
     </div>
   )
 }
@@ -22,7 +22,7 @@ export const Like = (props) => {
   if (current !== 'likes') {
     return (
       <div className='likeButtonContainer'>
-        <button className='likeButton' onClick={() => onClick(props.reviewId, 'likes', 'dislikes', props.likes, props.dislikes, props.toggle, props.setToggle)}>
+        <button className='likeButton' onClick={() => onClick(props.reviewId, 'likes', 'dislikes', props.likes, props.dislikes, props.toggle, props.setToggle, props.getReviews)}>
           {emptyUp}
           </button>
         <h4 className='likeCount'>{props.likes}</h4>
@@ -31,7 +31,7 @@ export const Like = (props) => {
   } else {
     return (
       <div className='likeButtonContainer'>
-        <button className='likeButton' onClick={() => onClick(props.reviewId, 'likes', 'dislikes', props.likes, props.dislikes, props.toggle, props.setToggle)}>
+        <button className='likeButton' onClick={() => onClick(props.reviewId, 'likes', 'dislikes', props.likes, props.dislikes, props.toggle, props.setToggle, props.getReviews)}>
           {solidUp}
         </button>
         <h4 className='likeCount'>{props.likes}</h4>
@@ -45,7 +45,7 @@ export const Dislike = (props) => {
   if (current !== 'dislikes') {
     return (
       <div className='dislikeButtonContainer'>
-        <button className='dislikeButton' onClick={() => onClick(props.reviewId, 'dislikes', 'likes', props.dislikes, props.likes, props.toggle, props.setToggle)}>
+        <button className='dislikeButton' onClick={() => onClick(props.reviewId, 'dislikes', 'likes', props.dislikes, props.likes, props.toggle, props.setToggle, props.getReviews)}>
           {emptyDown}
           </button>
         <h4 className='dislikeCount'>{props.dislikes}</h4>
@@ -54,7 +54,7 @@ export const Dislike = (props) => {
   } else {
     return (
       <div className='dislikeButtonContainer'>
-        <button className='dislikeButton' onClick={() => onClick(props.reviewId, 'dislikes', 'likes', props.dislikes, props.likes, props.toggle, props.setToggle)}>
+        <button className='dislikeButton' onClick={() => onClick(props.reviewId, 'dislikes', 'likes', props.dislikes, props.likes, props.toggle, props.setToggle, props.getReviews)}>
           {solidDown}
         </button>
         <h4 className='dislikeCount'>{props.dislikes}</h4>
@@ -63,7 +63,10 @@ export const Dislike = (props) => {
   }
 }
 
- export const onClick = (reviewId, react1, react2, num1, num2, toggle, setToggle) => {
+// Keeping most recent change
+// ProfPage
+export const onClick = (reviewId, react1, react2, num1, num2, toggle, setToggle) => {
+// const onClick = (reviewId, react1, react2, num1, num2, toggle, setToggle, getReviews) => {
   var current = localStorage.getItem(reviewId);
   if (current === react1) {
     localStorage.removeItem(reviewId);
@@ -74,6 +77,7 @@ export const Dislike = (props) => {
     })
     .then((results) => {
       setToggle(!toggle);
+      getReviews();
       return;
     })
     .catch((err) => {
@@ -91,6 +95,7 @@ export const Dislike = (props) => {
     })
     .then((results) => {
       setToggle(!toggle);
+      getReviews();
       return;
     })
     .catch((err) => {
@@ -105,6 +110,7 @@ export const Dislike = (props) => {
     })
     .then((results) => {
       setToggle(!toggle);
+      getReviews();
       return;
     })
     .catch((err) => {

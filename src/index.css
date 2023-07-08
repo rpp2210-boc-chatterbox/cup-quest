@@ -11,6 +11,7 @@
   color-scheme: light dark;
   color: #99592a;
   background-color: var(--white);
+  margin: 3%;
 }
 
 .reviewsEntry {
@@ -21,6 +22,12 @@
   max-width: 101%;
   min-height: 184px;
   margin: 1% 0% 0% 0%;
+}
+
+.noReviewsYet {
+  left: 107px;
+  font-weight: bolder;
+  position: relative;
 }
 
 .reviewsPic {
@@ -187,6 +194,10 @@
 }
 
 @media only screen and (min-width: 500px) {
+  :root {
+    max-width: 75%;
+  }
+
   .reviewsEntry {
     display: inline-block;
     border: 1px solid black;
@@ -234,6 +245,17 @@
 
 .button_logout {
   float: right;
+  display: inline-block;
+  margin-top: 5%;
+  text-align: center;
+  padding: 10px 15px;
+  font-size: 14px;
+  border: none;
+  color: #542a1b;
+  border: #e6b17e;
+  background-color: #e6b17e;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 .button_home {
@@ -241,15 +263,23 @@
 }
 
 .button_back {
-  float: left;
+  /* float: left; */
+  display: inline-block;
+  position: left;
+  margin-top: 5%;
+  text-align: center;
+  padding: 10px 15px;
+  font-size: 14px;
+  border: none;
+  color: #542a1b;
+  border: #e6b17e;
+  background-color: #e6b17e;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 .overview_info {
-  margin: 20px;
-}
-
-.overview_address {
-  padding: 10px;
+  margin: 2%;
 }
 
 .logo {
@@ -259,14 +289,22 @@
 }
 
 .logo_home {
-  width: 20%;
-  height: 20%;
+  width: 30%;
+  height: 30%;
   position: center;
+  max-width: 30%;
+  top: 20%;
+  transform: translate(-17px, 10px);
 }
 
 .logo_home--container {
-  justify-content: center;
-  position: center;
+  /* justify-content: center; */
+  position: absolute;
+  align-items: center;
+  text-align: center;
+  display: inline-block;
+  max-width: 70%;
+  justify-content: stretch;
   align-items: center;
 }
 

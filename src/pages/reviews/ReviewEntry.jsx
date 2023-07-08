@@ -82,7 +82,7 @@ export const ReviewEntry = (props) => {
       </div>
       {chooseComments()}
       <div className='reactionButtons'>
-        <Reactions toggle={props.toggle} setToggle={props.setToggle} reviewId={props.reviewId} likes={props.likes} dislikes={props.dislikes} />
+        <Reactions getReviews={props.getReviews} toggle={props.toggle} setToggle={props.setToggle} reviewId={props.reviewId} likes={props.likes} dislikes={props.dislikes} />
       </div>
     </div>
   )

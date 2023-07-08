@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { Shop} from '../../database/models/shop.js';
+import { Shop } from '../../database/models/shop.js';
+import { Review } from '../../database/models/review.js';
 import 'dotenv/config';
 
 import express from 'express';
@@ -24,8 +25,26 @@ router.get('/:id', (req, res) => {
     })
 })
 
-router.get('/menu-averages', (req, res) => {
-
+router.get('/menu-averages/:id', (req, res) => {
+  Review.find({ shop: req.params.id })
+    .then((reviews) => {
+      var allDrinks = {};
+      if (reviews.length > 0) {
+        reviews.forEach((review) => {
+          if (allDrinks[review.drink] === undefined) {
+            allDrinks[review.drink] = { ratingSum: review.rating, count: 1 } ;
+          } else {
+            allDrinks[review.drink].ratingSum += review.rating;
+            allDrinks[review.drink].count++;
+          }
+        })
+      }
+      res.status(200).send(allDrinks);
+    })
+    .catch((err) => {
+      console.log('error calculating average drink rating', err);
+      res.status(404).send(err);
+    })
 });
 
 // const getShopDetails = (req, res) => {

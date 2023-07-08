@@ -11,11 +11,9 @@ const FriendsList = (props) => {
   const [users, setUsers] = useState([]);
   const { name } = useParams();
 
-
   const location = useLocation();
-  console.log('Use Location Hook: ', location);
-  console.log('Use Location State: ', location.state?.currentUser);
-
+  // console.log('Use Location Hook: ', location);
+  // console.log('Use Location State: ', location.state.currentUser);
 
   useEffect(() => {
     requestHandler(`/user/${name}/friends`, null, 'get', (response) => {
@@ -32,17 +30,17 @@ const FriendsList = (props) => {
   return (
     <div className="friends">
       <h1>Friends</h1>
-       {friends.map((friend) => {
+        {friends.map((friend) => {
           return (
-            <FriendElement friend={friend} />
+            <FriendElement friend={friend} currentUser={location.state.currentUser} />
           )
         })}
       <h2>All Users</h2>
-      {users.map((user) => {
-        return (
-          <FriendElement friend={user} />
-        )
-      })}
+        {users.map((user) => {
+          return (
+            <FriendElement friend={user} currentUser={location.state.currentUser} />
+          )
+        })}
     </div>
   )
 }

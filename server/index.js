@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import express from 'express';
 import mongoose from 'mongoose';
 import 'dotenv/config'
@@ -8,12 +7,15 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import cors from 'cors';
 import compression from 'compression';
+import http from 'http';
+import { Server } from 'socket.io';
 
 // import '../database/models.js';
 // import { Review, User, Shop} from '../database/models.js';
 import { User } from '../database/models/user.js'
 import { Review } from '../database/models/review.js'
 // EXPRESS ROUTES
+import chat from './routes/chat.js';
 import user from './routes/user.js';
 import overview from './routes/overview.js';
 
@@ -21,9 +23,7 @@ import overview from './routes/overview.js';
 import '../database/index.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-//all this work just for __dirname in es6
 const app = express();
-
 
 app.use(compression());
 app.use(express.static(path.join(__dirname, '../dist')));
@@ -47,7 +47,7 @@ app.get("/", function (req, res) {
 })
 
 // routes go here
-
+app.use('/chat', chat);
 app.use('/user', user);
 app.use('/shops', overview);
 
@@ -122,12 +122,15 @@ app.get('/userLogin/:email', async (req, res) => {
   }
 });
 
-app.get('/reviews', (req, res) => {
-  const shop = req.body.shop === undefined ? 0 : req.body.shop;
-  Review.find({ shop: shop }).sort({ createdAt: 'desc' })
-    .then((results) => {
-      res.status(200).send(results);
-    })
+app.get('/reviews/:id', (req, res) => {
+  console.log('body: ', req.body);
+  console.log('params: ', req.params);
+  console.log('query: ', req.query)
+  const shop = req.params.id ? req.params.id : 0;
+  Review.find({shop: shop}).sort({createdAt: 'desc'})
+  .then((results) => {
+    res.status(200).send(results);
+  })
 })
 
 app.post('/reviews', (req, res) => {
@@ -149,6 +152,33 @@ app.post('/reviews', (req, res) => {
     })
   // Review.create({})
 })
+
+app.get('/map/:lat/:lng/:api', (req, res) => {
+  const lat = req.params.lat;
+  const lng = req.params.lng;
+  const API = req.params.api;
+
+  // console.log('lat,lng,auth===> ', lat, lng, API)
+
+  fetch(`https://api.yelp.com/v3/businesses/search?latitude=${lat}&longitude=${lng}&term=coffee&sort_by=best_match&limit=10`, {
+    headers: {
+      Authorization: API
+    }
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.businesses && data.businesses.length > 0) {
+        res.status(200).json(data.businesses);
+      } else {
+        res.status(404).json({ message: 'No coffee shops found' });
+      }
+    })
+    .catch(error => {
+      console.log('Error fetching coffee shops:', error);
+      res.status(500).json({ message: 'Error fetching coffee shops' });
+    });
+});
+
 
 app.put('/reviews', (req, res) => {
   const reviewId = new mongoose.Types.ObjectId(req.body.reviewId);
@@ -182,8 +212,38 @@ app.put('/reviews', (req, res) => {
 
 // eslint-disable-next-line no-undef
 const port = process.env.PORT;
-app.listen(port, () => {
+const server = http.createServer(app).listen(port, () => {
   console.log('listening on port', port);
   console.log(`Go to http://localhost:${port} for more details`)
 });
 
+const io = new Server(server);
+
+const USER_LIST = {};
+
+io.on('connection', (socket) => {
+  socket.on('register', (username) => {
+    socket.username = username;
+    USER_LIST[username] = socket;
+  });
+
+  socket.on('private_message', (data) => {
+    const to = data.to;
+    const text = data.text;
+    const timeStamp = data.timeStamp;
+    const username = data.username;
+
+    if (USER_LIST[to]) {
+      USER_LIST[to].emit('private_message', {
+        to, text, timeStamp, username, self: false
+      });
+      USER_LIST[username].emit('private_message', {
+        to, text, timeStamp, username, self: true
+      });
+    }
+  });
+
+  socket.on('disconnect', (socket) => {
+    console.log(`user disconnected ${socket.id}`);
+  });
+});

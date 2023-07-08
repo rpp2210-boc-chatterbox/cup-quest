@@ -1,18 +1,26 @@
-.overview_info {
-  margin: 20px;
+.overview_header {
+  margin: 2%;
+  position: relative;
 }
 
 .overview_contact {
   margin-bottom: 10px;
+  position: relative;
+  font-weight: bolder;
+  /* text-align: center; */
 }
 
 .overview_contact--phone {
-  float: right;
+  float: left;
+  position: absolute;
+  display: block;
 }
 
 .overview_contact--address {
   float: left;
-  padding-bottom: 10px;
+  padding-bottom: 5%;
+  /* justify-content: center; */
+  transform: translateY(50%);
 }
 
 .overview_menu {
@@ -21,10 +29,14 @@
   overflow-y: scroll;
   display: block;
   padding-top: 10px;
+  border: solid #95a2a5;
+  border-radius: 10px;
+  padding: 2%;
 }
 
 .overview_menu--title {
   float: center;
+  text-align: center;
 }
 
 .overview_menuItem--rating {
@@ -57,10 +69,64 @@
   overflow-x: auto;
   padding: 0;
   margin: 0;
+  margin-left: -12%;
 }
-
 
 .overview_hours {
   display: inline-block;
   /* float: left; */
+  font-weight: bolder;
+  width: 100%;
+  border-top: solid #95a2a5;
+  border-bottom: solid #95a2a5;
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+
+.overview_hours--day {
+  float: left;
+  display: block;
+  margin-right: 30%;
+}
+
+.overview_hours--times {
+  float: right;
+}
+
+.overview_map {
+  height: '15vh';
+  width: '45%';
+  margin-bottom: '10px';
+  float: right;
+}
+
+.overview_title {
+  border-bottom: solid #95a2a5;
+}
+
+@media only screen and (min-width: 500px) {
+  .overview_fullPage {
+    max-width: 500px;
+    min-width: 50%;
+    margin: auto;
+  }
+
+  .overview_header {
+    /* max-width: 75%; */
+    left: 7.5%;
+    position: relative;
+  }
+
+  .overview_info {
+    /* max-width: 75%; */
+    left: 7.5%;
+    position: relative;
+  }
+
+  .overview_pictures--container {
+    overflow-x: auto;
+    padding: 0;
+    margin: 0 0 0 -7%;
+    padding-top: 5%;
+  }
 }

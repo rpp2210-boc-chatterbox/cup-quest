@@ -43,6 +43,7 @@ export const ReviewPost = (props) => {
       })
       .then(() => {
         props.getReviews()
+        props.getAverages();
       })
       .catch((e) => {
         console.log(e);

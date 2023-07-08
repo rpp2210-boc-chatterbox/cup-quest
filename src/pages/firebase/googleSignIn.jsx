@@ -18,10 +18,10 @@ function GoogleSignIn({ setEmail, setName, setPicture }) {
           callback: handleCallbackResponse
         });
 
-        // google.accounts.id.renderButton(
-        //   signInDiv.current,
-        //   { theme: "filled", size: "medium" }
-        // );
+        google.accounts.id.renderButton(
+          signInDiv.current,
+          { theme: "filled", size: "medium" }
+        );
         google.accounts.id.prompt(); // also display the One Tap dialog
       }
     }

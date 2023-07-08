@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams, useLocation  } from 'react-router-dom'
 
@@ -12,8 +13,8 @@ const UserProfile = (props) => {
   const { name } = useParams();
   const user = JSON.parse(localStorage.getItem('inUser'));
   const location = useLocation();
-  //console.log('Use Location Hook: ', location);
-  //console.log('Use Location State: ', location.state?.currentUser);
+  // console.log('Use Location Hook: ', location);
+  // console.log('Use Location State: ', location.state.currentUser);
 
   useEffect(() => {
 
@@ -52,13 +53,11 @@ const UserProfile = (props) => {
         </div>
       </div>
       <div className="buttons">
-        <Link to={{
-          pathname: `/user/${profile.name}/friends`,
-        }}>
+        <Link to={{pathname: `/user/${profile.name}/friends` }} state={{ currentUser: location.state.currentUser }}>
           <button className="friends-button" >Friends</button>
         </Link>
         {isUser ? <div className='edit-button' onClick={() => {console.log('hi')}}>Edit User</div> :
-          <FriendToggle name={profile.name} />
+          <FriendToggle currentUser={location.state.currentUser} id={profile._id} name={profile.name} />
         }
       </div>
       <div className='profile-history'>
