@@ -8,6 +8,7 @@ import { fileURLToPath } from 'url';
 import cors from 'cors';
 import compression from 'compression';
 import http from 'http';
+import axios from 'axios';
 import { Server } from 'socket.io';
 
 // import '../database/models.js';
@@ -160,16 +161,18 @@ app.get('/map/:lat/:lng/:api', (req, res) => {
 
   // console.log('lat,lng,auth===> ', lat, lng, API)
 
-  fetch(`https://api.yelp.com/v3/businesses/search?latitude=${lat}&longitude=${lng}&term=coffee&sort_by=best_match&limit=10`, {
+  axios.get(`https://api.yelp.com/v3/businesses/search?latitude=${lat}&longitude=${lng}&term=coffee&sort_by=best_match&limit=10`, {
     headers: {
       Authorization: API
     }
   })
-    .then(response => response.json())
+    // .then(response => response.json())
     .then(data => {
-      if (data.businesses && data.businesses.length > 0) {
-        res.status(200).json(data.businesses);
+      if (data.data.businesses && data.data.businesses.length > 0) {
+        console.log('in data', data.data.businesses);
+        res.status(200).send(data.data.businesses);
       } else {
+        console.log('in error block')
         res.status(404).json({ message: 'No coffee shops found' });
       }
     })

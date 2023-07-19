@@ -15,9 +15,23 @@ CupQuest is a mobile-based application that serves as a comprehensive guide for 
 
 ## Features
 * **User Account and Authentication**: CupQuest provides users with the ability to create their own accounts. The app utilizes Google Authentication to ensure secure and easy login for users. User information is stored in Firebase, ensuring data security.
+
+<img src="http://g.recordit.co/qqakKLHBPe.gif" width="30%" height="30%"> <img src="http://g.recordit.co/CLSh3KmSi1.gif" width="30%" height="30%">
+
 * **Coffee Shop Search**: With the help of the <a href="https://developers.google.com/maps">Google Maps API</a> and the <a href="https://docs.developer.yelp.com/docs/fusion-intro">Yelp API</a>, CupQuest offers a powerful search feature that allows users to find coffee shops in their vicinity. User searches are based on location, though results can be filtered by drinks and ratings.
-* **Coffee Shop Information and Reviews**: Once a coffee shop is selected, CupQuest gathers detailed information from Yelp, including hours, contact information, and photos. At the moment, the menu is standardized across all coffee shops with basic drinks available anywhere, but there is an option for Specialty drinks to submit reviews for more creative beverages. These menu items are displayed with their average rating from the submitted reviews. Users can also read reviews left by other users--their friends showing first. Users can react by liking or disliking individual reviews.
+* **Coffee Shop Information**: Once a coffee shop is selected, CupQuest gathers detailed information from Yelp, including hours, contact information, and photos. The menu is standardized across all coffee shops with basic drinks available anywhere, but there is an option for Specialty drinks to submit reviews for more creative beverages. These menu items are displayed with their average rating from the submitted reviews.
+
+<img src="http://g.recordit.co/REw8GJ4HlU.gif" width="30%" height="30%">
+
+* **Coffee Shop Reviews**: When a coffee shop is selected, users can read reviews left by other users--their friends showing first. Users can react by liking or disliking individual reviews. Users can also submit their own reviews by drink using the review submission form above the list.
+
+<img src="http://g.recordit.co/fqivFV1sxo.gif" width="30%" height="30%">
+<img src="http://g.recordit.co/0XEs8EYbtR.gif" width="30%" height="30%">
+
 * **Friends and Chat**: CupQuest allows for connecting with friends and fellow coffee enthusiasts. Users can add and remove friends, see other users' review history, and message with friends. This feature encourages a sense of community and fosters engagement among users.
+
+<img src="./examples/add_removing_friend.gif" width="30%" height="30%">
+<img src="./examples/chat_feature.gif" width="30%" height="30%">
 
 ## Usage
 To get started with CupQuest, follow these steps:

@@ -57,10 +57,18 @@ const UserProfile = (props) => {
     // whereas friend profile has add/remove friend button
     // accepts props.isUser and conditionally renders button
     <div className="profile">
-      <div className='upperRibbon'>
-        <Link to='/home'> <button className='ribbonButton'>Home</button> </Link>
-        <img src="../logo-no-background.svg" alt="CupQuest Logo" className="profile-logo" ></img>
-        <Link to='/'> <button className='ribbonButton'>Logout</button> </Link>
+      <div className="overview_header">
+        <Link to='/home'>
+          <button className="button_back">Back</button>
+        </Link>
+        <Link to='/home'>
+          <span className="logo_home--container">
+          <img src="../../logo-no-background.svg" alt="CupQuest Logo" className="logo logo_home"/>
+          </span>
+        </Link>
+        <Link to='/'>
+          <button className='button_logout'>Logout</button>
+        </Link>
       </div>
 
       <div className='profile-info'>

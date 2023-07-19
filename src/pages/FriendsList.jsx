@@ -8,7 +8,7 @@ import requestHandler from '../lib/requestHandler.js';
 const FriendsList = (props) => {
   const [friends, setFriends] = useState([]);
   // TESTING
-  // const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([]);
   const { name } = useParams();
 
   const location = useLocation();
@@ -21,11 +21,11 @@ const FriendsList = (props) => {
     });
   }, [name]);
 
-  // useEffect(() => {
-  //   requestHandler('/user/all', null, 'get', (response) => {
-  //     setUsers(response.data);
-  //   });
-  // }, []);
+  useEffect(() => {
+    requestHandler('/user/all', null, 'get', (response) => {
+      setUsers(response.data);
+    });
+  }, []);
 
   return (
     <div className="friends">
@@ -48,12 +48,12 @@ const FriendsList = (props) => {
             <FriendElement friend={friend} currentUser={location.state.currentUser} />
           )
         })}
-      {/* <h2>All Users</h2>
+      <h2>All Users</h2>
         {users.map((user) => {
           return (
             <FriendElement friend={user} currentUser={location.state.currentUser} />
           )
-        })} */}
+        })}
     </div>
   )
 }

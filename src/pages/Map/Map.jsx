@@ -11,6 +11,7 @@ import LocalCafeTwoToneIcon from '@mui/icons-material/LocalCafeTwoTone';
 import { Link, Routes, Route } from 'react-router-dom';
 import { ShopOverview } from "../ShopOverview";
 import InputIcon from '@mui/icons-material/Input';
+import axios from 'axios';
 
 const API = {
   geocode: import.meta.env.VITE_MAP_API_KEY,
@@ -39,13 +40,13 @@ const Map = () => {
   const [userId, setUserId] = useState('');
 
   useEffect(() => {
-    
+
     // console.log('shopId===> ', shopId);
     // if (!shopId) {
-      
+
     console.log('lat/lng===> ', lat, lng)
-    
-    
+
+
     if (lat && lng) {
       // setShops(testData.businesses);
       // setSelectedShopId(null);
@@ -69,9 +70,9 @@ const Map = () => {
         }
       )
     }
-    
+
     fetchShops(lat, lng, API.yelp);
-    
+
   }, []);
 
   const handleAddressChange = (event) => {
@@ -86,12 +87,13 @@ const Map = () => {
 
   const handleSearch = () => {
     // Use the searchQuery state to fetch the location data from the Geocoding API
-    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(searchQuery)}&key=${API.geocode}`)
-      .then(response => response.json())
+    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(searchQuery)}&key=${API.geocode}`)
+      // .then(response => response.json())
       .then(data => {
+        console.log(data);
         // Check if the API returned any results
-        if (data.status === 'OK' && data.results.length > 0) {
-          const { lat, lng } = data.results[0].geometry.location;
+        if (data.data.status === 'OK' && data.data.results.length > 0) {
+          const { lat, lng } = data.data.results[0].geometry.location;
           setLat(lat);
           setLng(lng);
           // setShops([]);
@@ -110,10 +112,11 @@ const Map = () => {
   };
 
   const fetchShops = (lat, lng, api) => {
-  fetch(`/map/${lat}/${lng}/${api}`)
-    .then(response => response.json())
+  axios.get(`/map/${lat}/${lng}/${api}`)
+    // .then(response => response.json())
     .then(data => {
-      setShops(data);
+      console.log('inside then block', data);
+      setShops(data.data);
       setSelectedShopId(null);
       setMarkerClicked(false);
     })
@@ -231,12 +234,12 @@ const Map = () => {
                 }}
               >
                 <Link
-                  to='/overview' 
-                  state={{ 
+                  to='/overview'
+                  state={{
                     shopId: shop.id,
                     userId: userId
                   }}
-                  style={{ 
+                  style={{
                     color: "#542a1b",
                     display: 'flex',
                     flexDirection: 'row',
@@ -253,10 +256,10 @@ const Map = () => {
                     setMarkerClicked(true);
                   }}
                 </LocalCafeTwoToneIcon>
-                
-                    <Typography 
+
+                    <Typography
                     underline="hover"
-                    style={{ 
+                    style={{
                       color: "#542a1b"
                       }}>
                       {shop.name}
