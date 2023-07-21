@@ -5,7 +5,7 @@ import requestHandler from './requestHandler.js';
 import {ReviewEntry} from '../pages/reviews/ReviewEntry.jsx';
 import { ReviewList } from '../pages/reviews/ReviewList.jsx';
 
-const UserHistoryList = ({user}) => {
+const UserHistoryList = ({user, profilePicture}) => {
   const [reviewList, setReviewList] = useState([]);
   const [toggle, setToggle] = useState(true);
   const [reviewContent, setReviewContent] = useState([]);
@@ -27,10 +27,9 @@ const UserHistoryList = ({user}) => {
       .then((results) => {
         setReviewContent(results.data);
         return results.data.map((review) => {
-          console.log('this', review)
           return (
             // eslint-disable-next-line react/jsx-key
-            <UserHistoryElement getReviews={getReviews} toggle={toggle} setToggle={setToggle} likes={review.likes} dislikes={review.dislikes} reviewId={review._id} drink={review.drink} comments={review.comments} rating={review.rating} profilePic={user.picture} username={user.name}/>
+            <UserHistoryElement getReviews={getReviews} toggle={toggle} setToggle={setToggle} likes={review.likes} dislikes={review.dislikes} reviewId={review._id} drink={review.drink} comments={review.comments} rating={review.rating} profilePic={profilePicture} username={user.name}/>
           )
         })
       })

@@ -9,6 +9,8 @@ import requestHandler from './requestHandler.js';
 import UserSearch from './UserSearch.jsx';
 import UserCard from './userCard.jsx';
 
+import { saveProfilePicture } from '../pages/firebase/firebaseStorage';
+
 const UserProfile = (props) => {
   const [isUser, setIsUser] = useState(false);
   const [profile, setProfile] = useState({});
@@ -16,6 +18,19 @@ const UserProfile = (props) => {
   const user = JSON.parse(localStorage.getItem('inUser'));
   const location = useLocation();
   const [users, setUsers] = useState([]);
+
+  const [profilePicture, setProfilePicture] = useState(user.picture)
+
+  const handleProfilePictureChange = (e) => {
+    const file = e.target.files[0];
+    saveProfilePicture(user.email, file.name, file).then((result) => {
+      setProfilePicture(result);
+      user.picture = result;
+      localStorage.setItem('inUser', JSON.stringify(user));
+    })
+
+
+  };
 
   const [search, setSearch] = useState('')
   const onSearch = (e) => {
@@ -73,7 +88,17 @@ const UserProfile = (props) => {
 
       <div className='profile-info'>
         <div className='profile-picture'>
-          <img className='profile-pic' src={profile.picture} alt={'UPLOAD'}></img>
+              <input
+                type="file"
+                accept="image/*"
+                id="pics"
+                onChange={handleProfilePictureChange}
+                className="profilePicture-input"
+              />
+              <label for="pics" className="profilePicture-label"> edit </label>
+
+
+          <img className='profile-pic' src={profilePicture} alt={'UPLOAD'}></img>
         </div>
         <div className="profile-text">
           <div className='profile-username'><h4>{profile.name}</h4></div>
@@ -90,7 +115,7 @@ const UserProfile = (props) => {
       </div>
       {/* <UserSearch onSearch={onSearch} search={search} /> */}
       <div className='profile-history'>
-        <UserHistoryList user={user} />
+        <UserHistoryList user={user} profilePicture={profilePicture} />
       </div>
     </div>
   )

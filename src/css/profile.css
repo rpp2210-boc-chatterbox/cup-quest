@@ -6,7 +6,9 @@
 .profile-info {
   display: flex;
   align-items: flex-start;
+  margin-top: 50px;
   margin-bottom: 5px;
+
 }
 
 .profile-logo {
@@ -112,4 +114,21 @@
   background-color: #f1e6d0;
   color: #99592a;
   border: 0px transparent;
+}
+
+.profilePicture-input {
+  position: relative;
+  top: 80px;
+  left:80px;
+  display: none;
+}
+.profilePicture-label {
+  position: relative;
+  top: 19px;
+  left: 105px;
+  color: #99592a;
+  background-color: #f1e6d0;
+  border:#99592a 1px transparent;
+    font-size: small;
+  border-radius: 5%;
 }
