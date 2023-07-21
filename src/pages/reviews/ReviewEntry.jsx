@@ -8,6 +8,7 @@ export const ReviewEntry = (props) => {
   // const [dislikes, setDislikes] = useState(props.dislikes);
   const drink = 'reviewed ' + props.drink;
   const rating = () => {
+    console.log(props.profilePic);
     if (props.rating === 1) {
       return (
         <div className='reviewsRatingContainer'>

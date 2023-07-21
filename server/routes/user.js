@@ -81,4 +81,15 @@ router.put('/:name', async (req, res) => {
   }
 })
 
+// router.get('/:name/reviews', (req, res) => {
+//   const id = req.query.user_id === undefined ? 0 : req.query.user_id;
+//   console.log('------------------->', req.query.user_id)
+//   Review.find({ user_id: id }).sort({ createdAt: 'desc' })
+//     .then((results) => {
+//       console.log(results)
+//       res.status(200).send(results);
+//     })
+// })
+
 export default router;
+

@@ -24,6 +24,7 @@
   max-width: 101%;
   min-height: 184px;
   margin: 1% 0% 0% 0%;
+
 }
 
 .noReviewsYet {
@@ -66,8 +67,10 @@
   margin: 67px 0% 15px 19px;
 }
 
-#entryContainer {
+.entryContainer {
   min-height: 55px;
+  position: relative;
+  top: 25px;
 }
 
 #reviewListNext {
@@ -105,6 +108,7 @@
   margin: 0 4px 0 0;
   left: 0px;
   position: relative;
+  top: 30px;
 }
 
 #postReviewDrinkOptions {
@@ -160,7 +164,7 @@
 .reactionButtons {
   left: 5px;
   position: relative;
-  top: 37px;
+  top: 65px;
 }
 
 .likeButton {

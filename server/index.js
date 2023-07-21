@@ -205,6 +205,19 @@ app.put('/reviews', (req, res) => {
       res.status(500).send(err)
     })
 })
+
+
+app.get('/reviews/user/:id', (req, res) => {
+  console.log('WTF: ', req.params);
+  var id = req.params.id ? req.params.id : 0;
+  Review.find({user_id: id}).sort({createdAt: 'desc'})
+  .then((results) => {
+    console.log(results)
+    res.status(200).send(results);
+  })
+})
+
+
 // app.get('/ratings', (req, res) => {
 //   getDrinkRatings(req, res);
 // });

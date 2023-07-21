@@ -19,6 +19,7 @@ export function Home({ loggedEmail, loggedName, loggedPicture, setEmail, setName
     async function fetchUser() {
       const user = getCurrentUser();
       const response = await axios.get(`/userLogin/${user.email}`)
+      console.log(response)
       setCurrentUser(response.data);
       localStorage.setItem('inUser', JSON.stringify(response.data));
       console.log(window.localStorage.inUser)

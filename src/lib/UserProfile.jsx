@@ -6,18 +6,47 @@ import UserHistoryList from './UserHistoryList.jsx';
 import FriendToggle from './FriendToggle.jsx';
 
 import requestHandler from './requestHandler.js';
+import UserSearch from './UserSearch.jsx';
+import UserCard from './userCard.jsx';
+
+import { saveProfilePicture } from '../pages/firebase/firebaseStorage';
 
 const UserProfile = (props) => {
   const [isUser, setIsUser] = useState(false);
   const [profile, setProfile] = useState({});
   const { name } = useParams();
-
+  const user = JSON.parse(localStorage.getItem('inUser'));
   const location = useLocation();
-  // console.log('Use Location Hook: ', location);
-  // console.log('Use Location State: ', location.state.currentUser);
+  const [users, setUsers] = useState([]);
+
+  const [profilePicture, setProfilePicture] = useState(user.picture)
+
+  const handleProfilePictureChange = (e) => {
+    const file = e.target.files[0];
+    saveProfilePicture(user.email, file.name, file).then((result) => {
+      setProfilePicture(result);
+      user.picture = result;
+      localStorage.setItem('inUser', JSON.stringify(user));
+    })
+
+
+  };
+
+  const [search, setSearch] = useState('')
+  const onSearch = (e) => {
+    setSearch(e.target.value);
+  };
+
+ const getAllUsers = () => {
+  requestHandler(`/user/all`, null, 'get', (response) => {
+    setUsers(response.data);
+  });
+
+ }
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('inUser'));
+    getAllUsers();
+
     if(name === user.name) {
       setIsUser(true);
       setProfile(user);
@@ -27,9 +56,15 @@ const UserProfile = (props) => {
       setIsUser(false);
     });
     }
-
-
   }, [name]);
+
+
+
+  let searchedUsers = [...users].filter((user) => {
+    return user.name.toLowerCase().includes(search.toLowerCase());
+   }).map((user) => {
+   return <UserCard user={user}/>
+  });
 
   return (
     // only thing that is different between friend and user
@@ -53,7 +88,17 @@ const UserProfile = (props) => {
 
       <div className='profile-info'>
         <div className='profile-picture'>
-          <img className='profile-pic' src={profile.picture} alt={'UPLOAD'}></img>
+              <input
+                type="file"
+                accept="image/*"
+                id="pics"
+                onChange={handleProfilePictureChange}
+                className="profilePicture-input"
+              />
+              <label for="pics" className="profilePicture-label"> edit </label>
+
+
+          <img className='profile-pic' src={profilePicture} alt={'UPLOAD'}></img>
         </div>
         <div className="profile-text">
           <div className='profile-username'><h4>{profile.name}</h4></div>
@@ -61,16 +106,16 @@ const UserProfile = (props) => {
         </div>
       </div>
       <div className="buttons">
-        <Link to={{pathname: `/user/${profile.name}/friends` }} state={{ currentUser: location.state.currentUser }}>
+        <Link to={{ pathname: `/user/${profile.name}/friends` }} state={{ currentUser: location.state.currentUser }}>
           <button className="friends-button" >Friends</button>
         </Link>
-        {isUser ? <div className='edit-button' onClick={() => {console.log('hi')}}>Edit User</div> :
+        {isUser ? <div className='edit-button' onClick={() => { console.log('hi') }}>Edit User</div> :
           <FriendToggle currentUser={location.state.currentUser} id={profile._id} name={profile.name} />
         }
       </div>
+      {/* <UserSearch onSearch={onSearch} search={search} /> */}
       <div className='profile-history'>
-      <div><h4>User History</h4></div>
-        <UserHistoryList />
+        <UserHistoryList user={user} profilePicture={profilePicture} />
       </div>
     </div>
   )
